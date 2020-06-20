@@ -10,7 +10,7 @@ import java.util.List;
  * The entity allowing interaction with the zoos table
  */
 @Entity
-@Table(name = "zoos")
+@Table(name = "zoo")
 public class Zoo extends Auditable{
     /**
      * The primary key (long) of the zoos table
@@ -66,13 +66,29 @@ public class Zoo extends Auditable{
         this.zooname = zooname;
     }
 
+    public List<Telephone> getTelephones() {
+        return telephones;
+    }
 
+    public void setTelephones(List<Telephone> telephones) {
+        this.telephones = telephones;
+    }
+
+    public List<ZooAnimals> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<ZooAnimals> animals) {
+        this.animals = animals;
+    }
 
     @Override
     public String toString() {
         return "Zoo{" +
                 "zooid=" + zooid +
                 ", zooname='" + zooname + '\'' +
+                ", telephones=" + telephones +
+                ", animals=" + animals +
                 '}';
     }
 }
