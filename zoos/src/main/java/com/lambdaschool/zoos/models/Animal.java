@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * The entity allowing interaction with the animals table
  */
-//@Entity
-@Table(name = "animals")
+@Entity
+@Table(name = "animal")
 public class Animal extends Auditable{
 
     /**
@@ -22,9 +22,9 @@ public class Animal extends Auditable{
     private long animalid;
 
     /**
-     * The animal name (String). Cannot be null and must be unique
+     * The animal name (String). Cannot be null
      */
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String animaltype;
 
 
