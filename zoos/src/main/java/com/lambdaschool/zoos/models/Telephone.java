@@ -6,7 +6,7 @@ import javax.persistence.*;
  * The entity allowing interaction with the telephones table
  */
 @Entity
-@Table(name = "telephones")
+@Table(name = "telephone")
 public class Telephone extends Auditable{
 
     /**
@@ -20,6 +20,11 @@ public class Telephone extends Auditable{
      * Short description (String) of location or purpose of the phone number
      */
     private String phonetype;
+
+    /**
+     * Phone number (String)
+     */
+    private String phonenumber;
 
     /**
      * Creates a join table joining Telephones and Zoos
@@ -53,6 +58,14 @@ public class Telephone extends Auditable{
         this.phonetype = phonetype;
     }
 
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
     public Zoo getZoo() {
         return zoo;
     }
@@ -66,6 +79,7 @@ public class Telephone extends Auditable{
         return "Telephone{" +
                 "phoneid=" + phoneid +
                 ", phonetype='" + phonetype + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
                 ", zoo=" + zoo +
                 '}';
     }
