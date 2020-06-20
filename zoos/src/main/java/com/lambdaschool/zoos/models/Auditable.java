@@ -1,4 +1,4 @@
-package com.lambdaschool.usermodel.zoos;
+package com.lambdaschool.zoos.models;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,17 +17,17 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 abstract class Auditable {
     @CreatedBy
-    protected String created_by;
+    protected String createdby;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date created_date;
+    protected Date createddate;
 
     @LastModifiedBy
-    protected String last_modified_by;
+    protected String lastmodifiedby;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date last_modified_date;
+    protected Date lastmodifieddate;
 
 }
