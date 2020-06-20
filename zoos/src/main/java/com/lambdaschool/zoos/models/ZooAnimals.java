@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "zooanimals", uniqueConstraints = {@UniqueConstraint(columnNames = {"zooid", "animalid"})})
-public class ZooAnimals implements Serializable {
+public class ZooAnimals extends Auditable implements Serializable {
 
     /**
      * The foreign key (Zoo) of the zoos table
@@ -27,6 +27,7 @@ public class ZooAnimals implements Serializable {
      * The foreign key (Animal) of the animals table
      */
     @Id
+    @ManyToOne
     @JoinColumn(name = "animalid")
     @JsonIgnoreProperties(value = "zoos")
     private Animal animal;
