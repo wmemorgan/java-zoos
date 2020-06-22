@@ -28,7 +28,7 @@ public class ZooController {
      * List of all zoos
      * <br>Example: <a href="http://localhost:2019/zoos/zoos">http://localhost:2019/zoos/zoos</a>
      *
-     * @return JSON List of all the roles and their associated users
+     * @return JSON List of all the roles and their associated zoos
      * @see ZooService#findAll() ZooService.findAll()
      */
     @GetMapping(value="/zoos", produces = {"application/json"})
@@ -40,7 +40,7 @@ public class ZooController {
 
     /**
      * Returns a single user based off a user id number
-     * <br>Example: http://localhost:2019/zoos/zoo/{zooid}
+     * <br>Example: http://localhost:2019/zoos/zoo/3
      *
      * @param zooid The primary key of the user you seek
      * @return JSON object of the user you seek
@@ -56,7 +56,7 @@ public class ZooController {
     /**
      * Given a complete Zoo Object, create a new Zoo record and accompanying telephone records
      * and animal records.
-     * <br> Example: <a href="http://localhost:2019/users/zoo">http://localhost:2019/users/zoo</a>
+     * <br> Example: <a href="http://localhost:2019/zoos/zoo">http://localhost:2019/zoos/zoo</a>
      *
      * @param newZoo A complete new zoo to add including telephone numbers and animals.
      *                animals must already exist.
@@ -88,16 +88,33 @@ public class ZooController {
      * Roles are handled through different endpoints
      * <br> Example: <a href="http://localhost:2019/zoos/zoo/15">http://localhost:2019/zoos/zoo/15</a>
      *
-     * @param replaceZoo A complete Zoo including all emails and roles to be used to
+     * @param replacedZoo A complete Zoo including all emails and roles to be used to
      *                   replace the Zoo. Roles must already exist.
      * @param zooid     The primary key of the zoo you wish to replace.
      * @return status of OK
      * @see ZooService#save(Zoo) ZooService.save(Zoo)
      */
     @PutMapping(value = "/zoo/{zooid}", consumes = {"application/json"})
-    public ResponseEntity<?> replaceZoo(@Valid @RequestBody Zoo replaceZoo, @PathVariable long zooid) {
-        replaceZoo.setZooid(zooid);
-        zooService.save(replaceZoo);
+    public ResponseEntity<?> replaceZoo(@Valid @RequestBody Zoo replacedZoo, @PathVariable long zooid) {
+        replacedZoo.setZooid(zooid);
+        zooService.save(replacedZoo);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Updates the zoo record associated with the given id with the provided data. Only the provided fields are affected.
+     * If a telephone list is given, it adds any new records not in the previous list
+     * <br> Example: <a href="http://localhost:2019/zoos/zoo/7">http://localhost:2019/zoos/zoo/7</a>
+     *
+     * @param updatedZoo An object containing values for just the fields that are being updated. All other fields are left NULL.
+     * @param zooid         The primary key of the zoo you wish to update.
+     * @return A status of OK
+     * @see ZooService#update(Zoo, long)  ZooService.update(Zoo, long)
+     */
+    @PatchMapping(value = "/zoo/{zooid}", consumes = {"application/json"})
+    public ResponseEntity<?> updateZoo(@Valid @RequestBody Zoo updatedZoo, @PathVariable long zooid) {
+        zooService.update(updatedZoo, zooid);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
