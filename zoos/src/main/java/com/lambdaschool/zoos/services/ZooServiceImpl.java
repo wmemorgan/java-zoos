@@ -73,32 +73,15 @@ public class ZooServiceImpl implements ZooService{
         }
 
         newZoo.getAnimals().clear();
-        if(zoo.getZooid() == 0) {
-            for (ZooAnimals a: zoo.getAnimals()) {
+        for (ZooAnimals a: zoo.getAnimals()) {
+            if (zooRepository.checkZooAnimalsCombo(zoo.getZooid(), a.getAnimal().getAnimalid()).getCount() > 0) {
                 Animal newAnimal = animalService.findAnimalById(a.getAnimal().getAnimalid());
-                newZoo.addAnimal(newAnimal);
+                newZoo.addAnimal(newAnimal, a.getIncomingzoo());
             }
-        } else {
-            for (ZooAnimals za : zoo.getAnimals()) {
-                addZooAnimal(za.getZoo().getZooid(), za.getAnimal().getAnimalid());
-            }
+
         }
 
         return zooRepository.save(newZoo);
     }
 
-    @Override
-    public void addZooAnimal(long zooid, long animalid) {
-        zooRepository.findById(zooid)
-                .orElseThrow(() -> new EntityNotFoundException("Zoo " + zooid + " not found"));
-
-        animalService.findAnimalById(animalid);
-
-        if (zooRepository.checkZooAnimalsCombo(zooid, animalid).getCount() > 0) {
-            zooRepository.insertZooAnimal(userAuditing.getCurrentAuditor()
-                    .get(), zooid, animalid);
-        } else {
-            throw new EntityNotFoundException("Zoo and Animal combination does not exists");
-        }
-    }
 }

@@ -38,5 +38,4 @@ public interface ZooService {
      * @param zooid
      * @param animalid
      */
-    void addZooAnimal(long zooid, long animalid);
 }
