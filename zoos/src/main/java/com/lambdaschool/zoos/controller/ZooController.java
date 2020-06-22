@@ -54,13 +54,13 @@ public class ZooController {
     }
 
     /**
-     * Given a complete Zoo Object, create a new User record and accompanying useremail records
-     * and user role records.
-     * <br> Example: <a href="http://localhost:2019/users/user">http://localhost:2019/users/user</a>
+     * Given a complete Zoo Object, create a new Zoo record and accompanying telephone records
+     * and animal records.
+     * <br> Example: <a href="http://localhost:2019/users/zoo">http://localhost:2019/users/zoo</a>
      *
-     * @param newZoo A complete new user to add including emails and roles.
-     *                roles must already exist.
-     * @return A location header with the URI to the newly created user and a status of CREATED
+     * @param newZoo A complete new zoo to add including telephone numbers and animals.
+     *                animals must already exist.
+     * @return A location header with the URI to the newly created zoo and a status of CREATED
      * @throws URISyntaxException Exception if something does not work in creating the location header
      * @see ZooService#save(Zoo) ZooService.save(Zoo)
      */
@@ -78,6 +78,27 @@ public class ZooController {
         responseHeaders.setLocation(newZooURI);
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
 
+
+    /**
+     * Given a complete Zoo Object
+     * Given the zoo id, primary key, is in the Zoo table,
+     * replace the Zoo record, telephone records, and animal records.
+     * Roles are handled through different endpoints
+     * <br> Example: <a href="http://localhost:2019/zoos/zoo/15">http://localhost:2019/zoos/zoo/15</a>
+     *
+     * @param replaceZoo A complete Zoo including all emails and roles to be used to
+     *                   replace the Zoo. Roles must already exist.
+     * @param zooid     The primary key of the zoo you wish to replace.
+     * @return status of OK
+     * @see ZooService#save(Zoo) ZooService.save(Zoo)
+     */
+    @PutMapping(value = "/zoo/{zooid}", consumes = {"application/json"})
+    public ResponseEntity<?> replaceZoo(@Valid @RequestBody Zoo replaceZoo, @PathVariable long zooid) {
+        replaceZoo.setZooid(zooid);
+        zooService.save(replaceZoo);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
