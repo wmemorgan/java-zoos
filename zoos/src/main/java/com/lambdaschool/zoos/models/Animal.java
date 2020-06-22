@@ -29,12 +29,6 @@ public class Animal extends Auditable{
 
 
     /**
-     * The name (String) of the zoo where the animal
-     * was previously located
-     */
-    private String incomingzoo;
-
-    /**
      * Creates a join table joining Animals and Zoos in a Many-To-Many relations.
      * Contains a List of Zoo Objects associated with this animal.
      */
@@ -46,10 +40,10 @@ public class Animal extends Auditable{
     public Animal() {
     }
 
-    public Animal(String animaltype, String incomingzoo) {
+    public Animal(String animaltype) {
         this.animaltype = animaltype;
-        this.incomingzoo = incomingzoo;
     }
+
 
     public long getAnimalid() {
         return animalid;
@@ -67,13 +61,6 @@ public class Animal extends Auditable{
         this.animaltype = animaltype;
     }
 
-    public String getIncomingzoo() {
-        return incomingzoo;
-    }
-
-    public void setIncomingzoo(String incomingzoo) {
-        this.incomingzoo = incomingzoo;
-    }
 
     public List<ZooAnimals> getZoos() {
         return zoos;
@@ -88,7 +75,6 @@ public class Animal extends Auditable{
         return "Animal{" +
                 "animalid=" + animalid +
                 ", animaltype='" + animaltype + '\'' +
-                ", incomingzoo='" + incomingzoo + '\'' +
                 ", zoos=" + zoos +
                 '}';
     }

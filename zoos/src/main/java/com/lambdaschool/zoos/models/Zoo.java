@@ -86,6 +86,10 @@ public class Zoo extends Auditable{
         animals.add(new ZooAnimals(this, animal));
     }
 
+    public void addAnimal(Animal animal, String incomingzoo) {
+        animals.add(new ZooAnimals(this, animal, incomingzoo));
+    }
+
     @Override
     public String toString() {
         return "Zoo{" +
