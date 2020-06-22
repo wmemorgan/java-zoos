@@ -84,4 +84,37 @@ public class ZooServiceImpl implements ZooService{
         return zooRepository.save(newZoo);
     }
 
+    @Transactional
+    @Override
+    public Zoo update(Zoo zoo, long id) {
+
+        Zoo currentZoo = findZooById(id);
+
+        if (zoo.getZooname() != null) {
+            currentZoo.setZooname(zoo.getZooname());
+        }
+
+        if (zoo.getTelephones().size() > 0) {
+            currentZoo.getTelephones().clear();
+
+            for (Telephone t : zoo.getTelephones()) {
+                Telephone newTelephone = new Telephone(t.getPhonetype(), t.getPhonenumber(), currentZoo);
+                currentZoo.getTelephones().add(newTelephone);
+            }
+        }
+
+        if (zoo.getAnimals().size() > 0) {
+            currentZoo.getAnimals().clear();
+
+            for (ZooAnimals a: zoo.getAnimals()) {
+                if (zooRepository.checkZooAnimalsCombo(zoo.getZooid(), a.getAnimal().getAnimalid()).getCount() > 0) {
+                    Animal newAnimal = animalService.findAnimalById(a.getAnimal().getAnimalid());
+                    currentZoo.addAnimal(newAnimal, a.getIncomingzoo());
+                }
+            }
+
+        }
+
+        return zooRepository.save(currentZoo);
+    }
 }

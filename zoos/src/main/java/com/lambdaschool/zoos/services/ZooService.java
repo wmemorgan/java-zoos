@@ -34,8 +34,14 @@ public interface ZooService {
     Zoo save(Zoo zoo);
 
     /**
-     * Adds an entry to the ZooAnimals join table
-     * @param zooid
-     * @param animalid
+     * Updates the provided fields in the user record referenced by the primary key.
+     * <p>
+     * Regarding Telephone and Animal items, this process only allows adding those. Deleting and editing those lists
+     * is done through a separate endpoint.
+     *
+     * @param zoo just the user fields to be updated.
+     * @param id   The primary key (long) of the user to update
+     * @return the complete user object that got updated
      */
+    Zoo update(Zoo zoo, long id);
 }
