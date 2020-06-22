@@ -117,4 +117,12 @@ public class ZooServiceImpl implements ZooService{
 
         return zooRepository.save(currentZoo);
     }
+
+    @Transactional
+    @Override
+    public void delete(long id) {
+        zooRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Zoo id " + id + " not found"));
+        zooRepository.deleteById(id);
+    }
 }

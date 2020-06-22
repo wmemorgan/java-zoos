@@ -18,7 +18,7 @@ public interface ZooService {
     /**
      * Return the first Zoo matching the given primary key
      *
-     * @param id The primary key (long) of the Role you seek
+     * @param id The primary key (long) of the Zoo you seek
      * @return The Zoo object you seek
      */
     Zoo findZooById(long id);
@@ -34,14 +34,21 @@ public interface ZooService {
     Zoo save(Zoo zoo);
 
     /**
-     * Updates the provided fields in the user record referenced by the primary key.
+     * Updates the provided fields in the zoo record referenced by the primary key.
      * <p>
      * Regarding Telephone and Animal items, this process only allows adding those. Deleting and editing those lists
      * is done through a separate endpoint.
      *
-     * @param zoo just the user fields to be updated.
-     * @param id   The primary key (long) of the user to update
-     * @return the complete user object that got updated
+     * @param zoo just the zoo fields to be updated.
+     * @param id   The primary key (long) of the zoo to update
+     * @return the complete zoo object that got updated
      */
     Zoo update(Zoo zoo, long id);
+
+    /**
+     * Deletes the zoo record and its telephone and animal items from the database based off of the provided primary key
+     *
+     * @param id id The primary key (long) of the zoo you seek.
+     */
+    void delete(long id);
 }
