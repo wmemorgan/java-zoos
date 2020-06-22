@@ -39,11 +39,11 @@ public class ZooController {
     }
 
     /**
-     * Returns a single user based off a user id number
+     * Returns a single zoo based off a zoo id number
      * <br>Example: http://localhost:2019/zoos/zoo/3
      *
-     * @param zooid The primary key of the user you seek
-     * @return JSON object of the user you seek
+     * @param zooid The primary key of the zoo you seek
+     * @return JSON object of the zoo you seek
      * @see ZooService#findZooById(long) (long) ZooService.findZooById(long)
      */
     @GetMapping(value = "/zoo/{zooid}", produces = {"application/json"})
@@ -115,6 +115,20 @@ public class ZooController {
     @PatchMapping(value = "/zoo/{zooid}", consumes = {"application/json"})
     public ResponseEntity<?> updateZoo(@Valid @RequestBody Zoo updatedZoo, @PathVariable long zooid) {
         zooService.update(updatedZoo, zooid);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Deletes a given zoo along with associated telephone and animal records
+     * <br>Example: <a href="http://localhost:2019/zoos/zoo/14">http://localhost:2019/zoos/zoo/14</a>
+     *
+     * @param zooid the primary key of the zoo you wish to delete
+     * @return Status of OK
+     */
+    @DeleteMapping(value = "/zoo/{zooid}")
+    public ResponseEntity<?> deleteZoo(@PathVariable long zooid) {
+        zooService.delete(zooid);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
