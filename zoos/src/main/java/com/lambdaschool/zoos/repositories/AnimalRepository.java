@@ -7,6 +7,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * The CRUD repository connecting Animal model to the rest of the application
+ */
 public interface AnimalRepository extends CrudRepository<Animal, Long> {
 
     /**
