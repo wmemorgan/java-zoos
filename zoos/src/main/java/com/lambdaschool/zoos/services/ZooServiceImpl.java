@@ -33,7 +33,7 @@ public class ZooServiceImpl implements ZooService{
     AnimalService animalService;
 
     @Autowired
-    UserAuditing userAuditing;
+    private UserAuditing userAuditing;
 
     @Override
     public List<Zoo> findAll() {
