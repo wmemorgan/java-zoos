@@ -16,7 +16,6 @@ public class Animal extends Auditable {
 
     private String animaltype;
 
-    private String incomingzoo;
 
     @OneToMany(mappedBy = "animal",
         cascade = CascadeType.ALL)
@@ -27,10 +26,9 @@ public class Animal extends Auditable {
     public Animal() {
     }
 
-    public Animal(long animalid, String animaltype, String incomingzoo) {
+    public Animal(long animalid, String animaltype) {
         this.animalid = animalid;
         this.animaltype = animaltype;
-        this.incomingzoo = incomingzoo;
     }
 
     public long getAnimalid() {
@@ -47,14 +45,6 @@ public class Animal extends Auditable {
 
     public void setAnimaltype(String animaltype) {
         this.animaltype = animaltype;
-    }
-
-    public String getIncomingzoo() {
-        return incomingzoo;
-    }
-
-    public void setIncomingzoo(String incomingzoo) {
-        this.incomingzoo = incomingzoo;
     }
 
     public Set<ZooAnimals> getZoos() {
